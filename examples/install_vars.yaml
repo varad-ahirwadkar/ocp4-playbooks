@@ -23,8 +23,6 @@ no_proxy: ""
 
 enable_local_registry: false
 
-fips_compliant: false
-
 rsct_image: "quay.io/powercloud/rsct-ppc64le:latest"
 
 chronyconfig:

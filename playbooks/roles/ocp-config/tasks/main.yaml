@@ -118,3 +118,13 @@
 
   - name: Best effort SELinux repair - Apache
     shell: "restorecon -vR /var/www/html || true"
+
+  - name: Generate Machine Config Master
+    template:
+      src: ../templates/99-master-machineconfig.yaml.j2
+      dest: "{{ workdir }}/openshift/99-master-machineconfig.yaml"
+
+  - name: Generate Machine Config Worker
+    template:
+      src: ../templates/99-worker-machineconfig.yaml.j2
+      dest: "{{ workdir }}/openshift/99-worker-machineconfig.yaml"

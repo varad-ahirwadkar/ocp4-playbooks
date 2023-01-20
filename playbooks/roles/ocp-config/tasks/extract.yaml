@@ -50,12 +50,28 @@
     patterns: "openshift-*.tar.gz"
   register: find_result
 
+# - name: Unarchive OCP4 tool files
+#   unarchive:
+#     src: "{{ item.path }}"
+#     dest: /usr/local/bin
+#     remote_src: yes
+#   with_items: "{{ find_result.files }}"
+
 - name: Unarchive OCP4 tool files
   unarchive:
     src: "{{ item.path }}"
-    dest: /usr/local/bin
+    dest: "{{ tools_dir }}"
     remote_src: yes
   with_items: "{{ find_result.files }}"
+
+- name: Copy OCP4 tool files
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: /usr/local/bin
+    remote_src: yes
+  loop:
+  - "{{ tools_dir }}/oc"
+  - "{{ tools_dir }}/kubectl"
 
 - name: Remove tools directory
   file:
